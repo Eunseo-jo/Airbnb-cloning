@@ -1,0 +1,506 @@
+@import "./constant";
+@import "./mixins";
+
+body {
+  max-width: 1760px;
+  width: 100%;
+  margin: 0 auto;
+  word-break: keep-all;
+  white-space: nowrap;
+  button {
+    cursor: pointer;
+  }
+  font-family: "Circular", -apple-system, "BlinkMacSystemFont", "Roboto",
+    "Helvetica Neue", sans-serif;
+}
+
+.header {
+  @include flexbox(center, space-between, _);
+  height: 80px;
+  padding: 0 40px;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  border-bottom: 1px solid $custom-gray;
+  z-index: 20;
+
+  @include bigDesktop {
+    padding: 0 80px;
+  }
+
+  @include mobile {
+    border-bottom: none;
+  }
+
+  &__logo {
+    @include flexbox(center, _, row);
+    color: $main-color;
+    font-weight: bold;
+    svg {
+      @include setSize(30px);
+      fill: $main-color;
+    }
+
+    @include mobile {
+      display: none;
+    }
+
+    @include desktop {
+      svg {
+        margin-right: 10px;
+      }
+      &::after {
+        content: "airbnb";
+      }
+    }
+  }
+
+  &__search-section {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    @include btn(40px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+    //transition: box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1);
+
+    &--normal {
+      display: flex;
+
+      span {
+        @include flexbox(center, _, _);
+        text-align: center;
+        border-left: solid 1px gray;
+        padding: 5px 16px;
+        &:first-child {
+          border: none;
+        }
+        &:last-of-type {
+          color: gray;
+        }
+      }
+
+      svg {
+        @include setSize(12px);
+        fill: white;
+      }
+
+      div {
+        @include setSize(32px);
+        @include flexbox(center, center, _);
+        border-radius: 50%;
+        background-color: $main-color;
+      }
+
+      @include mobile() {
+        display: none;
+      }
+    }
+    &:hover {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+    }
+
+    &--mobile {
+      display: none;
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      box-sizing: border-box;
+
+      @include mobile() {
+        display: flex;
+      }
+
+      &__search {
+        @include flexbox(center, _, _);
+
+        svg {
+          @include setSize(16px);
+          margin-right: 20px;
+        }
+
+        &__text {
+          @include flexbox(flex-start, _, column);
+          font-size: 14px;
+          p {
+            margin: 0;
+            font-weight: 600;
+          }
+          span {
+            color: gray;
+          }
+        }
+      }
+
+      &__filter {
+        @include setSize(36px);
+        @include flexbox(center, center, _);
+        border-radius: 50%;
+        border: 1px solid;
+        img {
+          @include setSize(12px);
+        }
+      }
+    }
+
+    @include mobile {
+      flex-grow: 1;
+    }
+  }
+
+  &__buttons {
+    @include flexbox(center, _, _);
+
+    &--utils {
+      display: flex;
+      padding: 12px;
+
+      button {
+        @include btn(24px);
+        padding: 12px;
+        img {
+          @include setSize(16px);
+        }
+        &:hover {
+          background-color: $hover-color;
+        }
+      }
+    }
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &__user-section {
+    width: 80px;
+    height: 44px;
+    @include flexbox(center, center, _);
+    border: 1px solid gray;
+    border-radius: 21px;
+    background-color: transparent;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+    &:hover {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+    }
+
+    svg {
+      @include setSize(30px);
+      margin-left: 5px;
+      fill: gray;
+    }
+
+    .menu {
+      @include setSize(16px);
+    }
+  }
+}
+
+.navigation {
+  width: 100%;
+  height: 98px;
+  @include flexbox(center, center, _);
+  flex-grow: 1;
+  position: sticky;
+  top: 79px;
+  padding: 0 40px;
+  background-color: white;
+  z-index: 10;
+  box-sizing: border-box;
+  box-shadow: rgb(0 0 0 / 16%) 0 0 6px;
+
+  @include bigDesktop {
+    padding: 0 80px;
+  }
+
+  img {
+    @include setSize(10px);
+  }
+
+  &__icons {
+    @include flexbox(center, _, _);
+    flex-grow: 1;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    position: relative;
+    &::-webkit-scrollbar {
+      width: 0;
+      display: none;
+    }
+
+    .active {
+      border-bottom: 2px solid;
+    }
+
+    &__icon {
+      width: auto;
+      height: 95px;
+      @include flexbox(center, center, column);
+      margin: 0 15px;
+      font-size: 12px;
+      text-align: center;
+
+      img {
+        @include setSize(24px);
+      }
+
+      @include mobile {
+        margin: 0 25px;
+      }
+    }
+
+    &__left,
+    &__right {
+      display: flex;
+      width: 30px;
+      height: 80px;
+      padding: 0 10px;
+      align-items: center;
+      transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+      //left & right btn
+      button {
+        @include setSize(28px);
+        @include btn(50%);
+        @include flexbox(center, _, _);
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid $custom-gray;
+        z-index: 10;
+        box-shadow: 0 0 0 1px transparent, 0 0 0 4px transparent,
+          0 2px 4px rgba(0, 0, 0, 0.18);
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 130%;
+        height: 100%;
+        background-image: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 1) 80%,
+          rgba(255, 255, 255, 0)
+        );
+      }
+      @include mobile {
+        display: none;
+      }
+    }
+
+    &__left {
+      display: none;
+      position: fixed;
+      height: 50px;
+      padding: 0 10px;
+      z-index: 10;
+    }
+
+    &__right {
+      position: sticky;
+      right: 0px;
+      height: 50px;
+      padding: 0 10px;
+      z-index: 10;
+      //display: none;
+    }
+  }
+
+  &__filter {
+    max-width: 77px;
+    height: 48px;
+    @include flexbox(center, center, _);
+    font-size: 14px;
+    margin-left: 24px;
+    padding: 2px 16px 0;
+    box-sizing: border-box;
+    @include btn(12px);
+    border: 1px solid $custom-gray;
+
+    img {
+      margin-right: 10px;
+    }
+
+    @include mobile {
+      display: none;
+    }
+  }
+}
+
+.explore-section {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 24px 40px;
+  position: relative;
+  margin: 16px 0;
+  padding: 0 40px;
+  line-height: 19px;
+  overflow: hidden;
+  justify-items: center;
+  font-size: 15px;
+
+  &__items {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    max-width: 374px;
+    max-height: 455px;
+    font-size: 15px;
+
+    &__image {
+      display: flex;
+      position: relative;
+      border-radius: 10px;
+      max-width: 374px;
+      max-height: 355px;
+      overflow: hidden;
+      flex-grow: 1;
+      // 사진
+      img {
+        width: 100%;
+        height: calc(100% * 1.05);
+        //object-fit: cover;
+      }
+      // 하트 아이콘
+      svg {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 21px;
+        height: 18px;
+        z-index: 5;
+        fill: rgba(0, 0, 0, 0.8);
+      }
+    }
+
+    &__info {
+      margin-top: 10px;
+      height: 88px;
+      p {
+        font-size: 15px;
+        margin: 0px;
+        color: gray;
+      }
+
+      p:last-child {
+        margin-top: 10px;
+        color: black;
+      }
+
+      &__location-review {
+        @include flexbox(flex-start, space-between, _);
+        font-size: 15px;
+        span {
+          font-weight: 600;
+          text-overflow: ellipsis;
+          padding-right: 10px;
+          box-sizing: border-box;
+        }
+        div {
+          @include flexbox(center, _, _);
+        }
+
+        svg {
+          @include setSize(13px);
+        }
+      }
+
+      &__price {
+        font-weight: 600;
+      }
+      &__distance &__date {
+        color: gray;
+      }
+    }
+  }
+
+  &__map {
+    width: 100%;
+    @include flexbox(_, center, _);
+    position: fixed;
+    bottom: 80px;
+    &-btn {
+      &::before {
+        content: "지도 표시하기";
+        @include flexbox(_, center, _);
+      }
+
+      @include flexbox(center, center, _);
+      height: 48px;
+      width: 140px;
+      border: none;
+      border-radius: 24px;
+      position: sticky;
+      color: white;
+      background-color: rgb(34, 34, 34);
+      flex-shrink: 0;
+
+      svg {
+        @include setSize(15px);
+        fill: white;
+        margin-left: 5px;
+      }
+
+      // 확대
+      &:hover {
+        transform: scale(1.05);
+        transition-property: opacity;
+      }
+
+      @include mobile {
+        &::before {
+          content: "지도";
+        }
+      }
+    }
+  }
+
+  @media (min-width: 550px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 950px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 1128px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 1640px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @media (min-width: 1880px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.mobile-nav {
+  display: none;
+  flex-direction: row;
+  justify-content: center;
+  border-top: 1px solid rgb(235, 235, 235);
+  align-items: center;
+  padding: 5px 0;
+
+  &__item {
+    height: 44px;
+    width: 20%;
+    @include flexbox(center, center, column);
+    text-align: center;
+    color: gray;
+    font-size: 10px;
+    cursor: pointer;
+    svg {
+      @include setSize(24px);
+      margin-bottom: 5px;
+      fill: gray;
+    }
+  }
+
+  @include mobile {
+    display: flex;
+  }
+}

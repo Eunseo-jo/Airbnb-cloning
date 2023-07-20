@@ -1,0 +1,46 @@
+@mixin mobile {
+  @media screen and (max-width: #{$BREAKPOINT_MOBILE}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$BREAKPOINT_DESKTOP}) {
+    @content;
+  }
+}
+
+@mixin bigDesktop {
+  @media (min-width: #{$BREAKPOINT_BIG_DESKTOP}) {
+    @content;
+  }
+}
+
+@mixin flexbox($align, $justify, $direction) {
+  @if $align == _ {
+    $align: stretch;
+  }
+  @if $justify == _ {
+    $justify: flex-start;
+  }
+  @if $direction == _ {
+    $direction: row;
+  }
+
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin btn($borderRadius: 0px) {
+  border: none;
+  background-color: transparent;
+  border-radius: $borderRadius;
+  cursor: pointer;
+}
+
+@mixin setSize($size: 0px) {
+  width: $size;
+  height: $size;
+}
